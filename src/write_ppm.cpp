@@ -14,7 +14,26 @@ bool write_ppm(
     (num_channels == 3 || num_channels ==1 ) &&
     ".ppm only supports RGB or grayscale images");
   ////////////////////////////////////////////////////////////////////////////
-  // Replace with your code here:
-  return false;
+  bool results = false;
+  std::ofstream image;
+  image.open (filename);
+  image << ("P3\n%d %d\n255\n", width, height);
+  for (int i = 0; i < data.size(); i++)
+  {
+  	image << ("%d ", data[i]);
+    if ((i + 1) % width == 0)
+    {
+		if (i == data.size() - 1)
+		{
+			results = true;
+			break;
+		}
+		image << "\n";
+	}
+  }
+  
+  image.close ();
+  
+  return results;
   ////////////////////////////////////////////////////////////////////////////
 }
